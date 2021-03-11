@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class StandardMovementController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private float speed;
@@ -22,16 +22,5 @@ public class StandardMovementController : MonoBehaviour
     private void Awake()
     {
         rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

@@ -12,6 +12,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ATTACK",
+                    "type": "Button",
+                    "id": "9653bb7e-7a0f-44b5-8d04-43a508301a9c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -69,6 +77,17 @@
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "195f44da-2195-4391-b7ca-a8887fb58c56",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ATTACK",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
