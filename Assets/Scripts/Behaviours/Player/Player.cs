@@ -7,10 +7,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Here!");
-        Debug.Log(damage);
         currentHealth -= damage;
-        Debug.Log(currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -21,6 +18,9 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("You fucking died");
+        GetComponent<PlayerCombat>().attackDamage = 0;
+        GetComponent<PlayerMovement>().speed = 0;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     // Start is called before the first frame update

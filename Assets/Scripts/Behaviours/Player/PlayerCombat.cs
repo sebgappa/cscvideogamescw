@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -6,8 +7,20 @@ public class PlayerCombat : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
     public int attackDamage = 20;
+    public float attackRate = 2f;
 
-    public void OnAttack()
+    private float nextAttackTime = 0;
+
+    public void OnAttack(InputAction.CallbackContext input)
+    {
+        if(Time.time >= nextAttackTime && input.started)
+        {
+            Attack();
+            nextAttackTime = Time.time + 1/attackRate;
+        }
+    }
+
+    private void Attack()
     {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
