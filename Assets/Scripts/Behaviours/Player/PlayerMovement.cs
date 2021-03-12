@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
+    public Vector2 direction;
     private Animator animator;
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRenderer;
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        var direction = context.action.ReadValue<Vector2>();
+        direction = context.action.ReadValue<Vector2>();
 
         if (direction.x < 0)
         {
@@ -26,7 +27,16 @@ public class PlayerMovement : MonoBehaviour
         newVelocity.y = direction.y * speed;
         rigidBody2D.velocity = newVelocity;
 
-        animator.SetFloat("Speed", Mathf.Abs(newVelocity.x + newVelocity.y));
+        if(direction.x != 0)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(newVelocity.x));
+        } else
+        {
+            animator.SetFloat("Speed", Mathf.Abs(newVelocity.y));
+        }
+
+
+
     }
 
     private void Awake()

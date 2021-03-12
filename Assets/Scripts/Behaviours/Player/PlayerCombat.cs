@@ -10,6 +10,7 @@ public class PlayerCombat : MonoBehaviour
     public float attackRate = 2f;
 
     private float nextAttackTime = 0;
+    private Animator animator;
 
     public void OnAttack(InputAction.CallbackContext input)
     {
@@ -22,6 +23,8 @@ public class PlayerCombat : MonoBehaviour
 
     private void Attack()
     {
+        animator.SetTrigger("Attack");
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies)
@@ -35,5 +38,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (attackPoint == null) return;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void Awake()
+    {
+        animator = gameObject.GetComponent<Animator>();
     }
 }
