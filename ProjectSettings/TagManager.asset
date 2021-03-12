@@ -15,7 +15,7 @@ TagManager:
   - 
   - Player1
   - Player2
-  - Wall
+  - StaticObject
   - 
   - 
   - 
@@ -47,6 +47,6 @@ TagManager:
   - name: Player
     uniqueID: 1995074107
     locked: 0
-  - name: Wall
+  - name: StaticObject
     uniqueID: 2036232843
     locked: 0

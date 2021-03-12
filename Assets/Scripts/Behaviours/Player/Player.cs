@@ -5,6 +5,9 @@ public class Player : MonoBehaviour
     private int maxHealth = 100;
     private int currentHealth;
     private Animator animator;
+    private PlayerCombat playerCombat;
+    private PlayerMovement playerMovement;
+    private BoxCollider2D boxCollider2D;
 
     public void TakeDamage(int damage)
     {
@@ -22,10 +25,10 @@ public class Player : MonoBehaviour
         animator.SetBool("isDead", true);
         Debug.Log("You fucking died");
 
-        GetComponent<PlayerCombat>().attackDamage = 0;
-        GetComponent<PlayerMovement>().speed = 0;
-        GetComponent<PlayerMovement>().direction.x = 0;
-        GetComponent<BoxCollider2D>().enabled = false;
+        playerCombat.attackDamage = 0;
+        playerMovement.speed = 0;
+        playerMovement.direction.x = 0;
+        boxCollider2D.enabled = false;
         enabled = false;
     }
 
@@ -38,5 +41,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
+        playerCombat = gameObject.GetComponent<PlayerCombat>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
+        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
     }
 }
