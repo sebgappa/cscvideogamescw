@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     private int maxHealth = 100;
     private int currentHealth;
     private Animator animator;
-    private PlayerCombat playerCombat;
-    private PlayerMovement playerMovement;
+    private PlayerInput playerInput;
+    private Rigidbody2D rigidBody2D;
     private BoxCollider2D boxCollider2D;
 
     public void TakeDamage(int damage)
     {
+        rigidBody2D.drag = 3;
         animator.SetTrigger("Hurt");
         currentHealth -= damage;
 
@@ -23,13 +25,8 @@ public class Player : MonoBehaviour
     private void Die()
     {
         animator.SetBool("isDead", true);
-        Debug.Log("You fucking died");
-
-        playerCombat.attackDamage = 0;
-        playerMovement.speed = 0;
-        playerMovement.direction.x = 0;
         boxCollider2D.enabled = false;
-        enabled = false;
+        playerInput.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -41,8 +38,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         animator = gameObject.GetComponent<Animator>();
-        playerCombat = gameObject.GetComponent<PlayerCombat>();
-        playerMovement = gameObject.GetComponent<PlayerMovement>();
+        playerInput = gameObject.GetComponent<PlayerInput>();
+        rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
     }
 }

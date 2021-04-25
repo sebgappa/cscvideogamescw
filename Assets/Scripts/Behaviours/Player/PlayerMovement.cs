@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed;
     public Vector2 direction;
+    public Transform attackPoint;
+
     private Animator animator;
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRenderer;
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
+        rigidBody2D.drag = 0;
         var newVelocity = rigidBody2D.velocity;
         newVelocity.x = direction.x * speed;
         newVelocity.y = direction.y * speed;

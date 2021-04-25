@@ -12,7 +12,6 @@ public class BladeSaw : MonoBehaviour
         {
             if (Time.time >= nextAttackTime)
             {
-                Debug.Log("Here!");
                 collision.gameObject.GetComponent<Player>().TakeDamage(damage);
                 nextAttackTime = Time.time + 1 / attackRate;
             }
