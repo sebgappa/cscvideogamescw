@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody2D rigidBody2D;
     private BoxCollider2D boxCollider2D;
+    private Score score;
 
     public void TakeDamage(int damage)
     {
@@ -29,8 +30,19 @@ public class Player : MonoBehaviour
         animator.SetBool("isDead", true);
         boxCollider2D.enabled = false;
         playerInput.enabled = false;
+        rigidBody2D.velocity = new Vector2(0, 0);
+        score.IncreaseScore();
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Revive();
+    }
+
+    private void Revive()
+    {
+        animator.SetBool("isDead", false);
+        animator.SetTrigger("Revive");
+        currentHealth = maxHealth;
+        boxCollider2D.enabled = true;
+        playerInput.enabled = true;
     }
 
     // Start is called before the first frame update
@@ -45,5 +57,6 @@ public class Player : MonoBehaviour
         playerInput = gameObject.GetComponent<PlayerInput>();
         rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        score = gameObject.GetComponent<Score>();
     }
 }
