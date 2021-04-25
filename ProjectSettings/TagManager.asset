@@ -16,7 +16,7 @@ TagManager:
   - Player1
   - Player2
   - StaticObject
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1995074107
+    locked: 0
+  - name: Bullet
+    uniqueID: 2737601119
     locked: 0
   - name: StaticObject
     uniqueID: 2036232843
