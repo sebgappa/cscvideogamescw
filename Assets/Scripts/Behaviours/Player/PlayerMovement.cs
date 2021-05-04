@@ -2,50 +2,25 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(CommandDispatcher))]
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
-    public float speed;
-    public Vector2 direction;
-    public Transform attackPoint;
+    public Animator Animator { get; set; }
+    public Rigidbody2D Rigidbody2D { get; set; }
+    public SpriteRenderer SpriteRenderer { get; set; }
 
-    private Animator animator;
-    private Rigidbody2D rigidBody2D;
-    private SpriteRenderer spriteRenderer;
+    private CommandDispatcher _commandDispatcher;
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        direction = context.action.ReadValue<Vector2>();
-
-        if (direction.x < 0)
-        {
-            spriteRenderer.flipX = false;
-        } else if(direction.x > 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-
-        rigidBody2D.drag = 0;
-        var newVelocity = rigidBody2D.velocity;
-        newVelocity.x = direction.x * speed;
-        newVelocity.y = direction.y * speed;
-        rigidBody2D.velocity = newVelocity;
-
-        if(direction.x != 0)
-        {
-            animator.SetFloat("Speed", Mathf.Abs(newVelocity.x));
-        } else
-        {
-            animator.SetFloat("Speed", Mathf.Abs(newVelocity.y));
-        }
-
-
-
+        _commandDispatcher.DispatchCommand(new MoveCommand(this, context.action.ReadValue<Vector2>()));
     }
 
     private void Awake()
     {
-        rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        animator = gameObject.GetComponent<Animator>();
+        _commandDispatcher = gameObject.GetComponent<CommandDispatcher>();
+        Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        SpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Animator = gameObject.GetComponent<Animator>();
     }
 }

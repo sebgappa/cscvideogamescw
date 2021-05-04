@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 8018418247111818213}
   - component: {fileID: 6292071}
   - component: {fileID: 915407126936004806}
+  - component: {fileID: 8737769724713692920}
   m_Layer: 8
   m_Name: Champ
   m_TagString: Player
@@ -134,7 +135,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -154,9 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5589237dfc5ef82448184adc2b47014a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  direction: {x: 0, y: 0}
-  attackPoint: {fileID: 0}
 --- !u!114 &-5757521311984964290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,16 +256,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPointRight: {fileID: 409686960}
   attackPointLeft: {fileID: 7365451586311578125}
-  attackRange: 0.2
+  bulletPrefab: {fileID: 6612804122030415089, guid: aa3749286c7977f4da10e33ac69d7b1f,
+    type: 3}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 512
-  attackDamage: 20
-  attackRate: 2
   rangedAttack: 1
-  bulletForce: 10
-  bulletPrefab: {fileID: 6612804122030415089, guid: aa3749286c7977f4da10e33ac69d7b1f,
-    type: 3}
 --- !u!114 &8018418247111818213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +306,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
+--- !u!114 &8737769724713692920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8116837713238647757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7326c2d27d2a57549852f23a5f44cb9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9088181269062184184
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,25 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+[RequireComponent(typeof(CommandDispatcher))]
+public class Player : MonoBehaviour, IPlayer
 {
-    private int maxHealth = 100;
-    private int currentHealth;
-    private Animator animator;
-    private PlayerInput playerInput;
-    private Rigidbody2D rigidBody2D;
-    private BoxCollider2D boxCollider2D;
-    private Score score;
+    public Rigidbody2D Rigidbody2D { get; set; }
+    public BoxCollider2D BoxCollider2D { get; set; }
+    public PlayerInput PlayerInput { get; set; }
+    public Score Score { get; set; }
+    public int MaxHealth { get => _maxHealth; }
+    public int CurrentHealth { get; set; }
+    public Animator Animator { get; set; }
+
+    private readonly int _maxHealth = 100;
+    private CommandDispatcher _commandDispatcher;
 
     public void TakeDamage(int damage)
     {
-        rigidBody2D.drag = 3;
-        animator.SetTrigger("Hurt");
-        currentHealth -= damage;
+        _commandDispatcher.DispatchCommand(new DamageCommand(this, damage));
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             StartCoroutine(Die());
         }
@@ -27,36 +28,23 @@ public class Player : MonoBehaviour
 
     private IEnumerator Die()
     {
-        animator.SetBool("isDead", true);
-        boxCollider2D.enabled = false;
-        playerInput.enabled = false;
-        rigidBody2D.velocity = new Vector2(0, 0);
-        score.IncreaseScore();
+        _commandDispatcher.DispatchCommand(new DieCommand(this));
         yield return new WaitForSeconds(3);
-        Revive();
+        _commandDispatcher.DispatchCommand(new ReviveCommand(this));
     }
 
-    private void Revive()
-    {
-        animator.SetBool("isDead", false);
-        animator.SetTrigger("Revive");
-        currentHealth = maxHealth;
-        boxCollider2D.enabled = true;
-        playerInput.enabled = true;
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = _maxHealth;
     }
 
     private void Awake()
     {
-        animator = gameObject.GetComponent<Animator>();
-        playerInput = gameObject.GetComponent<PlayerInput>();
-        rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
-        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
-        score = gameObject.GetComponent<Score>();
+        _commandDispatcher = gameObject.GetComponent<CommandDispatcher>();
+        Animator = gameObject.GetComponent<Animator>();
+        PlayerInput = gameObject.GetComponent<PlayerInput>();
+        Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        BoxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        Score = gameObject.GetComponent<Score>();
     }
 }
