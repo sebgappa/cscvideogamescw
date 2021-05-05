@@ -41,14 +41,14 @@ GameObject:
   - component: {fileID: 3057932331402374729}
   - component: {fileID: 3057932331402374728}
   - component: {fileID: 3057932331402374838}
-  - component: {fileID: -3680448582664956628}
   - component: {fileID: 8577224875040129253}
   - component: {fileID: 3057932331402374839}
-  - component: {fileID: 1630970305}
-  - component: {fileID: 1154721612570886078}
   - component: {fileID: 1182403636}
   - component: {fileID: 1560059238084835411}
   - component: {fileID: 3563055403551288058}
+  - component: {fileID: 6079506614254511155}
+  - component: {fileID: 5640821581939658472}
+  - component: {fileID: 673765549907278230}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Player
@@ -143,18 +143,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &-3680448582664956628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3057932331402374837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5589237dfc5ef82448184adc2b47014a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8577224875040129253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +171,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3680448582664956628}
+      - m_Target: {fileID: 673765549907278230}
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -198,7 +186,7 @@ MonoBehaviour:
     m_ActionName: Standard/MOVE[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1630970305}
+      - m_Target: {fileID: 5640821581939658472}
         m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
@@ -242,38 +230,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.1}
   m_EdgeRadius: 0
---- !u!114 &1630970305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3057932331402374837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f234e3f128a15ff48b159678eeab64c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPointRight: {fileID: 569348267}
-  attackPointLeft: {fileID: 1807270672152965049}
-  bulletPrefab: {fileID: 6612804122030415089, guid: aa3749286c7977f4da10e33ac69d7b1f,
-    type: 3}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  rangedAttack: 1
---- !u!114 &1154721612570886078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3057932331402374837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2a075d79eed434dbaf6069d39ce6d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1182403636
 Animator:
   serializedVersion: 3
@@ -305,7 +261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eadac9257c43994481e17100a0016a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 7918055069227124449, guid: 06aabb7e801a0c54c81c910ba4933f7b,
+    type: 3}
+  healthText: {fileID: 2194880364515361063, guid: 8027463a7ee0cfc4cbbeddfdc2379c99,
+    type: 3}
 --- !u!114 &3563055403551288058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +277,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7326c2d27d2a57549852f23a5f44cb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6079506614254511155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057932331402374837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2788594b9ef0be14b87ef2a68356a8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5640821581939658472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057932331402374837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d133300139f10b42b5ff6912d8d9ede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPointRight: {fileID: 569348267}
+  attackPointLeft: {fileID: 1807270672152965049}
+  bulletPrefab: {fileID: 6612804122030415089, guid: aa3749286c7977f4da10e33ac69d7b1f,
+    type: 3}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  rangedAttack: 0
+  attackRate: 2
+  nextAttackTime: 0
+--- !u!114 &673765549907278230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057932331402374837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffeba22774f10534e933386d2e0f275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
 --- !u!1 &4087011403172971478
 GameObject:
   m_ObjectHideFlags: 0
