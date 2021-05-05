@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 public class PauseScreen : MonoBehaviour
 {
     public static bool Paused = false;
+    public static bool Disabled = false;
     public GameObject pauseMenu;
 
     public void OnPause(InputAction.CallbackContext input)
     {
-        if (!input.started) return;
+        if (!input.started || Disabled) return;
 
         if (Paused)
         {

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public static event Action<Player> OnPlayerRevive;
     public static event Action OnMourn;
 
+    public string OpponentName;
+
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
 
