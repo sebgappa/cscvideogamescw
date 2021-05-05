@@ -1,50 +1,65 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CommandDispatcher))]
-public class Player : MonoBehaviour, IPlayer
+public class Player : MonoBehaviour
 {
-    public Rigidbody2D Rigidbody2D { get; set; }
-    public BoxCollider2D BoxCollider2D { get; set; }
-    public PlayerInput PlayerInput { get; set; }
-    public Score Score { get; set; }
-    public int MaxHealth { get => _maxHealth; }
-    public int CurrentHealth { get; set; }
-    public Animator Animator { get; set; }
+    public event Action OnWinner;
+    public event Action<int> OnDamage;
+    public static event Action OnMatchOver;
+    public static event Action<Player> OnPlayerDead;
+    public static event Action<Player> OnPlayerRevive;
+    public static event Action OnMourn;
+
+    private Rigidbody2D _rigidbody2D;
+    private Animator _animator;
 
     private readonly int _maxHealth = 100;
-    private CommandDispatcher _commandDispatcher;
+    private int _currentHealth = 100;
+    private Vector3 _startingPosition;
 
     public void TakeDamage(int damage)
     {
-        _commandDispatcher.DispatchCommand(new DamageCommand(this, damage));
+        _rigidbody2D.velocity = new Vector2(0, 0);
+        _animator.SetTrigger("Hurt");
+        _currentHealth -= damage;
+        OnDamage?.Invoke(_currentHealth);
 
-        if (CurrentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             StartCoroutine(Die());
         }
     }
 
+    public void ResetPosition()
+    {
+        transform.position = _startingPosition;
+    }
+
+    public void ResetHealth()
+    {
+        _currentHealth = _maxHealth;
+    }
+
     private IEnumerator Die()
     {
-        _commandDispatcher.DispatchCommand(new DieCommand(this));
-        yield return new WaitForSeconds(3);
-        _commandDispatcher.DispatchCommand(new ReviveCommand(this));
+        OnPlayerDead?.Invoke(this);
+        OnMourn?.Invoke();
+        yield return new WaitForSeconds(2);
+        OnWinner?.Invoke();
+        OnPlayerRevive?.Invoke(this);
+        OnMatchOver?.Invoke();
     }
 
     void Start()
     {
-        CurrentHealth = _maxHealth;
+        _currentHealth = _maxHealth;
+        _startingPosition = transform.position;
     }
 
     private void Awake()
     {
-        _commandDispatcher = gameObject.GetComponent<CommandDispatcher>();
-        Animator = gameObject.GetComponent<Animator>();
-        PlayerInput = gameObject.GetComponent<PlayerInput>();
-        Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        BoxCollider2D = gameObject.GetComponent<BoxCollider2D>();
-        Score = gameObject.GetComponent<Score>();
+        _animator = gameObject.GetComponent<Animator>();
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 }

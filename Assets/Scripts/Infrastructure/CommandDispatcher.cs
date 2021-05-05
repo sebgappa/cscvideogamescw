@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CommandDispatcher : MonoBehaviour
 {
-    private List<ICommand> _commands = new List<ICommand>();
+    private List<Command> _commands = new List<Command>();
     private int _currentCommandIndex = -1;
 
-    public void DispatchCommand(ICommand command)
+    public void DispatchCommand(Command command)
     {
         _commands.Add(command);
         command.Execute();
