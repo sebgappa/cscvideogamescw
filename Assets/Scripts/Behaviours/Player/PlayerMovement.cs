@@ -4,11 +4,24 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 3f;
+    private float _speed = 3f;
 
     private Animator _animator;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
+    private PlayerStats _playerStats;
+
+    public void Awake()
+    {
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _animator = gameObject.GetComponent<Animator>();
+        _playerStats = GetComponent<PlayerStats>();
+
+        _playerStats.OnSpeedIncrease += IncreaseSpeed;
+        _playerStats.OnSpeedReset += ResetSpeed;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         var direction = context.action.ReadValue<Vector2>();
@@ -23,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         var newVelocity = _rigidbody2D.velocity;
-        newVelocity.x = direction.x * speed;
-        newVelocity.y = direction.y * speed;
+        newVelocity.x = direction.x * _speed;
+        newVelocity.y = direction.y * _speed;
         _rigidbody2D.velocity = newVelocity;
 
         if (direction.x != 0)
@@ -37,10 +50,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void ResetSpeed(float factor)
     {
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _animator = gameObject.GetComponent<Animator>();
+        _speed /= factor;
+    }
+
+    private void IncreaseSpeed(float factor)
+    {
+        _speed *= factor;
     }
 }

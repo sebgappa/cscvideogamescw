@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 6079506614254511155}
   - component: {fileID: 5640821581939658472}
   - component: {fileID: 673765549907278230}
+  - component: {fileID: 7482116922672848820}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Player
@@ -289,6 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2788594b9ef0be14b87ef2a68356a8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OpponentName: 
+  respawnPeriod: 2
 --- !u!114 &5640821581939658472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +327,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+--- !u!114 &7482116922672848820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057932331402374837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdde23171b7826428eb113d65981d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4087011403172971478
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public event Action OnWinner;
-    public event Action<int> OnDamage;
+    public event Action<float> OnDamage;
     public static event Action OnMatchOver;
     public static event Action<Player> OnPlayerDead;
     public static event Action<Player> OnPlayerRevive;
@@ -16,21 +16,30 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
 
-    private readonly int _maxHealth = 100;
-    private int _currentHealth = 100;
     private Vector3 _startingPosition;
 
-    public void TakeDamage(int damage)
+    [SerializeField]
+    private int respawnPeriod = 2;
+
+    public void Start()
+    {
+        _startingPosition = transform.position;
+    }
+
+    public void Awake()
+    {
+        _animator = gameObject.GetComponent<Animator>();
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+
+        GetComponent<PlayerStats>().OnDead += StartDeathCoroutine;
+    }
+
+    public void TakeDamage(float damage)
     {
         _rigidbody2D.velocity = new Vector2(0, 0);
         _animator.SetTrigger("Hurt");
-        _currentHealth -= damage;
-        OnDamage?.Invoke(_currentHealth);
-
-        if (_currentHealth <= 0)
-        {
-            StartCoroutine(Die());
-        }
+        
+        OnDamage?.Invoke(damage);
     }
 
     public void ResetPosition()
@@ -38,30 +47,18 @@ public class Player : MonoBehaviour
         transform.position = _startingPosition;
     }
 
-    public void ResetHealth()
+    private void StartDeathCoroutine()
     {
-        _currentHealth = _maxHealth;
+        StartCoroutine(Die());
     }
 
     private IEnumerator Die()
     {
         OnPlayerDead?.Invoke(this);
         OnMourn?.Invoke();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(respawnPeriod);
         OnWinner?.Invoke();
         OnPlayerRevive?.Invoke(this);
         OnMatchOver?.Invoke();
-    }
-
-    void Start()
-    {
-        _currentHealth = _maxHealth;
-        _startingPosition = transform.position;
-    }
-
-    private void Awake()
-    {
-        _animator = gameObject.GetComponent<Animator>();
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 }

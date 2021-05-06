@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MatchUmpire : MonoBehaviour
@@ -33,7 +32,7 @@ public class MatchUmpire : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].ResetPosition();
-            players[i].ResetHealth();
+            players[i].GetComponent<PlayerStats>().ResetHealth();
             players[i].GetComponent<PlayerInput>().enabled = true;
         }
         
