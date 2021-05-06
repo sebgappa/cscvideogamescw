@@ -3,8 +3,6 @@
 public class Bullet : MonoBehaviour
 {
     public GameObject explosionEffect;
-
-    [SerializeField]
     private float _bulletDamage = 20;
 
     public void OnCollisionEnter2D(Collision2D collision)

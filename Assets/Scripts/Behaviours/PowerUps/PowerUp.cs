@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    public static event Action OnPowerUpCollected;
+
     private BoxCollider2D _boxCollider2D;
     private SpriteRenderer _spriteRenderer;
     private int powerUpDuration = 5;
@@ -23,6 +25,7 @@ public class PowerUp : MonoBehaviour
 
     private IEnumerator Collect(Collider2D player)
     {
+        OnPowerUpCollected.Invoke();
         PowerUpManager powerUpManager = player.GetComponent<PowerUpManager>();
 
         Array powerUps = Enum.GetValues(typeof(PowerUpType));
