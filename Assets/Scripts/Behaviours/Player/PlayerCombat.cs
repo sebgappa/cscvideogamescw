@@ -16,6 +16,8 @@ public class PlayerCombat : MonoBehaviour, IEntity
     private PlayerStats _playerStats;
 
     [SerializeField]
+    private float _bulletDamage = 20;
+    [SerializeField]
     private float _damage = 20;
     [SerializeField]
     private float _attackRange = 0.5f;
@@ -58,7 +60,7 @@ public class PlayerCombat : MonoBehaviour, IEntity
     {
         if (rangedAttack)
         {
-            bulletPrefab.GetComponent<Bullet>().ResetStrength(factor);
+            _bulletDamage /= factor;
         }
         else
         {
@@ -70,7 +72,7 @@ public class PlayerCombat : MonoBehaviour, IEntity
     {
         if(rangedAttack)
         {
-            bulletPrefab.GetComponent<Bullet>().IncreaseStrength(factor);
+            _bulletDamage *= factor;
         } else
         {
             _damage *= factor;
@@ -98,7 +100,7 @@ public class PlayerCombat : MonoBehaviour, IEntity
             bulletDirection = -attackPointLeft.right;
         }
 
-        _commandDispatcher.DispatchCommand(new ShootCommand(this, attackPoint, bulletDirection, bulletPrefab, _bulletForce));
+        _commandDispatcher.DispatchCommand(new ShootCommand(this, attackPoint, bulletDirection, bulletPrefab, _bulletForce, _bulletDamage));
     }
 
 }

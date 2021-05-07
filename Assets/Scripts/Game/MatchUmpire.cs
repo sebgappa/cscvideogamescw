@@ -11,6 +11,7 @@ public class MatchUmpire : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log("MatchUmpireStart");
         players = FindObjectsOfType<Player>();
         Player.OnMatchOver += ResetMatch;
         Player.OnMourn += DisablePlayers;
@@ -29,6 +30,7 @@ public class MatchUmpire : MonoBehaviour
 
     private void ResetMatch()
     {
+        Debug.Log(players.Length);
         for (int i = 0; i < players.Length; i++)
         {
             players[i].ResetPosition();
@@ -49,6 +51,7 @@ public class MatchUmpire : MonoBehaviour
 
     private void GameOver(Player loser)
     {
+        Debug.Log(players.Length);
         Time.timeScale = 0f;
         gameOverMenu.SetActive(true);
         winningPlayerText.text = loser.OpponentName;

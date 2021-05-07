@@ -337,6 +337,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverScreenCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 28237957634112758, guid: 73247f63b6882dc4ca4e87f60c6e906b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 28237957634112762, guid: 73247f63b6882dc4ca4e87f60c6e906b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -440,6 +445,11 @@ PrefabInstance:
     - target: {fileID: 28237957634112762, guid: 73247f63b6882dc4ca4e87f60c6e906b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 28237957858420432, guid: 73247f63b6882dc4ca4e87f60c6e906b,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 28237958082171435, guid: 73247f63b6882dc4ca4e87f60c6e906b,
@@ -1246,6 +1256,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 3057932331402374838, guid: 1aa4efd7966c5a746a1a6a6f9543c2c4,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5640821581939658472, guid: 1aa4efd7966c5a746a1a6a6f9543c2c4,
         type: 3}
       propertyPath: rangedAttack
@@ -1824,6 +1839,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8116837713238647746, guid: 355ad001b68edf841bcf5625aef83c05,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8116837713238647757, guid: 355ad001b68edf841bcf5625aef83c05,
         type: 3}

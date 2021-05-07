@@ -84,7 +84,7 @@ public class PlayerStats : MonoBehaviour
     private void IncreaseScore()
     {
         score++;
-        if (score == 5)
+        if (score == 1)
         {
             OnGameOver.Invoke(GetComponent<Player>());
         }

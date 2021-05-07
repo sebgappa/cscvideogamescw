@@ -3,7 +3,7 @@
 public class Bullet : MonoBehaviour
 {
     public GameObject explosionEffect;
-    private float _bulletDamage = 20;
+    private float _bulletDamage;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -17,13 +17,8 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
-    public void IncreaseStrength(float factor)
+    public void setDamage(float bulletDamage)
     {
-        _bulletDamage *= factor;
-    }
-
-    public void ResetStrength(float factor)
-    {
-        _bulletDamage /= factor;
+        _bulletDamage = bulletDamage;
     }
 }

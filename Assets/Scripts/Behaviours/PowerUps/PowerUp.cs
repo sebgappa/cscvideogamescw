@@ -25,7 +25,7 @@ public class PowerUp : MonoBehaviour
 
     private IEnumerator Collect(Collider2D player)
     {
-        OnPowerUpCollected.Invoke();
+        OnPowerUpCollected?.Invoke();
         PowerUpManager powerUpManager = player.GetComponent<PowerUpManager>();
 
         Array powerUps = Enum.GetValues(typeof(PowerUpType));
