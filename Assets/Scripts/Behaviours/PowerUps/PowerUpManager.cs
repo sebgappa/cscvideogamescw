@@ -45,7 +45,7 @@ public class PowerUpManager : MonoBehaviour
                 _playerStats.ResetSpeed(speedMultiplier);
                 break;
             case PowerUpType.Health:
-                _playerStats.disablePowerUpText();
+                _playerStats.DisablePowerUpText();
                 break;
             default:
                 break;

@@ -18,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     private int score = 0;
     private readonly float _maxHealth = 100;
     private float _currentHealth = 100;
+    private int winningScore = 5;
 
     public void Start()
     {
@@ -76,7 +77,7 @@ public class PlayerStats : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
-    public void disablePowerUpText()
+    public void DisablePowerUpText()
     {
         powerUpText.enabled = false;
     }
@@ -84,7 +85,7 @@ public class PlayerStats : MonoBehaviour
     private void IncreaseScore()
     {
         score++;
-        if (score == 1)
+        if (score == winningScore)
         {
             OnGameOver.Invoke(GetComponent<Player>());
         }

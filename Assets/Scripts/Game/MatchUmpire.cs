@@ -8,6 +8,7 @@ public class MatchUmpire : MonoBehaviour
     public Text winningPlayerText;
 
     private Player[] players;
+    private int playerOneLayer = 8;
 
     public void Start()
     {
@@ -51,9 +52,18 @@ public class MatchUmpire : MonoBehaviour
 
     private void GameOver(Player loser)
     {
-        Debug.Log(players.Length);
         Time.timeScale = 0f;
         gameOverMenu.SetActive(true);
         winningPlayerText.text = loser.OpponentName;
+
+        if (loser.gameObject.layer == playerOneLayer)
+        {
+            DataPersistance.GetPlayerTwoProfile().highscore += 1;
+        }
+        else
+        {
+            DataPersistance.GetPlayerOneProfile().highscore += 1;
+        }
+        DataPersistance.SaveProfiles();
     }
 }

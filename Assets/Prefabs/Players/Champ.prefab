@@ -266,6 +266,7 @@ MonoBehaviour:
     type: 3}
   healthText: {fileID: 6575177640691654783, guid: 8800e8e497584854f917aeb0fed25c71,
     type: 3}
+  powerUpText: {fileID: 0}
 --- !u!114 &8737769724713692920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,8 +313,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   rangedAttack: 0
-  attackRate: 2
-  nextAttackTime: 0
+  _bulletDamage: 20
+  _damage: 20
+  _attackRange: 0.5
+  _attackRate: 2
+  _nextAttackTime: 0
+  _bulletForce: 10
 --- !u!114 &4833910734202204956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeba22774f10534e933386d2e0f275b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  _speed: 3
 --- !u!114 &3534524694529188265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdde23171b7826428eb113d65981d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strengthMultiplier: 1.3
+  speedMultiplier: 1.5
+  healthBoost: 50
 --- !u!1 &9088181269062184184
 GameObject:
   m_ObjectHideFlags: 0
