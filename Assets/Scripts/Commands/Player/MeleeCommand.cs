@@ -7,16 +7,19 @@ public class MeleeCommand : Command
     private LayerMask _enemyLayers;
     private float _attackRange ;
     private float _attackDamage;
-    public MeleeCommand(IEntity entity, Transform attackPoint, LayerMask enemyLayers, float attackDamage, float attackRange) : base(entity)
+    public MeleeCommand(IEntity entity, Transform attackPoint, LayerMask enemyLayers, float attackDamage, float attackRange, float time) : base(entity, time)
     {
         _entity = entity;
+        _time = time;
         _attackPoint = attackPoint;
         _enemyLayers = enemyLayers;
         _attackDamage = attackDamage;
         _attackRange = attackRange;
     }
-    public override void Execute()
+    public override void Dispatch()
     {
+        _entity.animator.SetTrigger("Attack");
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies)

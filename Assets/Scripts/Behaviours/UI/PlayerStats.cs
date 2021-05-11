@@ -15,10 +15,10 @@ public class PlayerStats : MonoBehaviour
     public Text healthText;
     public Text powerUpText;
 
-    private int score = 0;
+    private int _score = 0;
     private readonly float _maxHealth = 100;
     private float _currentHealth = 100;
-    private int winningScore = 5;
+    private int _winningScore = 3;
 
     public void Start()
     {
@@ -73,8 +73,8 @@ public class PlayerStats : MonoBehaviour
 
     public void ResetScore()
     {
-        score = 0;
-        scoreText.text = score.ToString();
+        _score = 0;
+        scoreText.text = _score.ToString();
     }
 
     public void DisablePowerUpText()
@@ -84,12 +84,12 @@ public class PlayerStats : MonoBehaviour
 
     private void IncreaseScore()
     {
-        score++;
-        if (score == winningScore)
+        _score++;
+        if (_score == _winningScore)
         {
             OnGameOver.Invoke(GetComponent<Player>());
         }
-        scoreText.text = score.ToString();
+        scoreText.text = _score.ToString();
     }
 
     private void DecreaseHealth(float damage)

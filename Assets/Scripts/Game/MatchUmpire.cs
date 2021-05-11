@@ -7,13 +7,10 @@ public class MatchUmpire : MonoBehaviour
     public GameObject gameOverMenu;
     public Text winningPlayerText;
 
-    private Player[] players;
-    private int playerOneLayer = 8;
+    private int _playerOneLayer = 8;
 
     public void Start()
     {
-        Debug.Log("MatchUmpireStart");
-        players = FindObjectsOfType<Player>();
         Player.OnMatchOver += ResetMatch;
         Player.OnMourn += DisablePlayers;
         PlayerStats.OnGameOver += GameOver;
@@ -23,6 +20,8 @@ public class MatchUmpire : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameOverMenu.SetActive(false);
+
+        var players = FindObjectsOfType<Player>();
         for (int i = 0; i < players.Length; i++)
         {
             players[i].GetComponent<PlayerStats>().ResetScore();
@@ -31,7 +30,7 @@ public class MatchUmpire : MonoBehaviour
 
     private void ResetMatch()
     {
-        Debug.Log(players.Length);
+        var players = FindObjectsOfType<Player>();
         for (int i = 0; i < players.Length; i++)
         {
             players[i].ResetPosition();
@@ -52,11 +51,13 @@ public class MatchUmpire : MonoBehaviour
 
     private void GameOver(Player loser)
     {
+        GetComponent<ReplayService>().StopRecording();
+
         Time.timeScale = 0f;
         gameOverMenu.SetActive(true);
-        winningPlayerText.text = loser.OpponentName;
+        winningPlayerText.text = loser.GetOpponentsName();
 
-        if (loser.gameObject.layer == playerOneLayer)
+        if (loser.gameObject.layer == _playerOneLayer)
         {
             DataPersistance.GetPlayerTwoProfile().highscore += 1;
         }
@@ -64,6 +65,6 @@ public class MatchUmpire : MonoBehaviour
         {
             DataPersistance.GetPlayerOneProfile().highscore += 1;
         }
-        DataPersistance.SaveProfiles();
+        DataPersistance.SaveGameProperties();
     }
 }

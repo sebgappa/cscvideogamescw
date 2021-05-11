@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
     public event Action OnWinner;
@@ -11,27 +13,19 @@ public class Player : MonoBehaviour
     public static event Action<Player> OnPlayerRevive;
     public static event Action OnMourn;
 
-    public string OpponentName;
-
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
 
     private Vector3 _startingPosition;
 
     [SerializeField]
+    private string _opponentName;
+    [SerializeField]
     private int respawnPeriod = 2;
 
-    public void Start()
+    public string GetOpponentsName()
     {
-        _startingPosition = transform.position;
-    }
-
-    public void Awake()
-    {
-        _animator = gameObject.GetComponent<Animator>();
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-
-        GetComponent<PlayerStats>().OnDead += StartDeathCoroutine;
+        return _opponentName;
     }
 
     public void TakeDamage(float damage)
@@ -57,8 +51,21 @@ public class Player : MonoBehaviour
         OnPlayerDead?.Invoke(this);
         OnMourn?.Invoke();
         yield return new WaitForSeconds(respawnPeriod);
-        OnWinner?.Invoke();
         OnPlayerRevive?.Invoke(this);
         OnMatchOver?.Invoke();
+        OnWinner?.Invoke();
+    }
+
+    private void Start()
+    {
+        _startingPosition = transform.position;
+    }
+
+    private void Awake()
+    {
+        _animator = gameObject.GetComponent<Animator>();
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+
+        GetComponent<PlayerStats>().OnDead += StartDeathCoroutine;
     }
 }

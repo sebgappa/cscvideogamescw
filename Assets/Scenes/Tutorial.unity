@@ -442,6 +442,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 28237957858420432, guid: 73247f63b6882dc4ca4e87f60c6e906b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 28237958082171435, guid: 73247f63b6882dc4ca4e87f60c6e906b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1456,6 +1461,11 @@ PrefabInstance:
       propertyPath: OpponentName
       value: PLAYER1
       objectReference: {fileID: 0}
+    - target: {fileID: 6079506614254511155, guid: 1aa4efd7966c5a746a1a6a6f9543c2c4,
+        type: 3}
+      propertyPath: _opponentName
+      value: Player1
+      objectReference: {fileID: 0}
     - target: {fileID: 8577224875040129253, guid: 1aa4efd7966c5a746a1a6a6f9543c2c4,
         type: 3}
       propertyPath: m_Enabled
@@ -1470,6 +1480,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3854133912944326213, guid: 70250898b7289af4da6824d8acf8f2b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3854133913610696657, guid: 70250898b7289af4da6824d8acf8f2b7,
         type: 3}
       propertyPath: m_Name
@@ -1861,6 +1876,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OpponentName
       value: PLAYER2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888306016653720583, guid: 355ad001b68edf841bcf5625aef83c05,
+        type: 3}
+      propertyPath: _opponentName
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 4177587178242917744, guid: 355ad001b68edf841bcf5625aef83c05,
         type: 3}

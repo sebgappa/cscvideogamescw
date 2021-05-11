@@ -2,18 +2,19 @@
 
 public class BladeSaw : MonoBehaviour
 {
-    private readonly int damage = 10;
-    public float attackRate = 2f;
-    private float nextAttackTime = 0;
+    [SerializeField]
+    private float _attackRate = 2f;
+    private readonly int _damage = 10;
+    private float _nextAttackTime = 0;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (Time.time >= nextAttackTime)
+            if (Time.time >= _nextAttackTime)
             {
-                collision.gameObject.GetComponent<Player>().TakeDamage(damage);
-                nextAttackTime = Time.time + 1 / attackRate;
+                collision.gameObject.GetComponent<Player>().TakeDamage(_damage);
+                _nextAttackTime = Time.time + 1 / _attackRate;
             }
         }
     }

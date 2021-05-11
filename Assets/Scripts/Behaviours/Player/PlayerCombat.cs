@@ -2,6 +2,9 @@
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CommandDispatcher))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerStats))]
 public class PlayerCombat : MonoBehaviour, IEntity
 {
     public Transform attackPointRight;
@@ -28,23 +31,12 @@ public class PlayerCombat : MonoBehaviour, IEntity
     [SerializeField]
     private float _bulletForce = 10f;
 
-    public void Awake()
-    {
-        _commandDispatcher = GetComponent<CommandDispatcher>();
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _playerStats = GetComponent<PlayerStats>();
-
-        _playerStats.OnStrengthIncrease += IncreaseStrength;
-        _playerStats.OnStrengthReset += ResetStrength;
-    }
+    public Animator animator { get => _animator; }
 
     public void OnAttack(InputAction.CallbackContext input)
     {
         if(Time.time >= _nextAttackTime && input.started)
         {
-            _animator.SetTrigger("Attack");
-
             if (rangedAttack)
             {
                 Shoot();
@@ -87,7 +79,7 @@ public class PlayerCombat : MonoBehaviour, IEntity
             attackPoint = attackPointLeft;
         }
 
-        _commandDispatcher.DispatchCommand(new MeleeCommand(this, attackPoint, enemyLayers, _damage, _attackRange));
+        _commandDispatcher.DispatchCommand(new MeleeCommand(this, attackPoint, enemyLayers, _damage, _attackRange, Time.timeSinceLevelLoad));
     }
 
     private void Shoot() 
@@ -100,7 +92,17 @@ public class PlayerCombat : MonoBehaviour, IEntity
             bulletDirection = -attackPointLeft.right;
         }
 
-        _commandDispatcher.DispatchCommand(new ShootCommand(this, attackPoint, bulletDirection, bulletPrefab, _bulletForce, _bulletDamage));
+        _commandDispatcher.DispatchCommand(new ShootCommand(this, attackPoint, bulletDirection, bulletPrefab, _bulletForce, _bulletDamage, Time.timeSinceLevelLoad));
     }
 
+    private void Awake()
+    {
+        _commandDispatcher = GetComponent<CommandDispatcher>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerStats = GetComponent<PlayerStats>();
+
+        _playerStats.OnStrengthIncrease += IncreaseStrength;
+        _playerStats.OnStrengthReset += ResetStrength;
+    }
 }

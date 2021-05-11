@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -113,7 +112,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(textDelay);
         tutorialText.text = "After a player dies, the match is reset.";
         yield return new WaitForSeconds(textDelay);
-        tutorialText.text = "First to five wins.";
+        tutorialText.text = "First to three wins.";
         yield return new WaitForSeconds(textDelay);
         tutorialText.text = "That's the game...fight!";
     }

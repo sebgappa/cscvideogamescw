@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerStats))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -11,21 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private PlayerStats _playerStats;
 
-    public void Awake()
-    {
-        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        _animator = gameObject.GetComponent<Animator>();
-        _playerStats = GetComponent<PlayerStats>();
-
-        _playerStats.OnSpeedIncrease += IncreaseSpeed;
-        _playerStats.OnSpeedReset += ResetSpeed;
-    }
-
     public void OnMove(InputAction.CallbackContext context)
     {
-        var direction = context.action.ReadValue<Vector2>();
+        Move(context.action.ReadValue<Vector2>());
+    }
 
+    private void Move(Vector2 direction)
+    {
         if (direction.x < 0)
         {
             _spriteRenderer.flipX = false;
@@ -58,5 +54,16 @@ public class PlayerMovement : MonoBehaviour
     private void IncreaseSpeed(float factor)
     {
         _speed *= factor;
+    }
+
+    private void Awake()
+    {
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _animator = gameObject.GetComponent<Animator>();
+        _playerStats = GetComponent<PlayerStats>();
+
+        _playerStats.OnSpeedIncrease += IncreaseSpeed;
+        _playerStats.OnSpeedReset += ResetSpeed;
     }
 }
