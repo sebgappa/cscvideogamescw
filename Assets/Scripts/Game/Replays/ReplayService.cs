@@ -5,16 +5,16 @@ public class ReplayService : MonoBehaviour
 {
     private Player[] _playerComponents;
 
-    private MemoryStream memoryStream = null;
-    private BinaryWriter binaryWriter = null;
-    private BinaryReader binaryReader = null;
+    private MemoryStream _stream = null;
+    private BinaryWriter _writer = null;
+    private BinaryReader _reader = null;
 
-    private bool recordingInitialized = false;
+    private bool initialized = false;
     private bool recording = false;
     private bool replaying = false;
 
-    private int currentRecordingFrames = 0;
-    private int maxRecordingFrames = 1800;
+    private int _currentRecordingFrames = 0;
+    private int _maximumRecordingFrames = 1800;
 
     private int replayFrameLength = 2;
     private int replayFrameTimer = 0;
@@ -37,23 +37,23 @@ public class ReplayService : MonoBehaviour
         }
     }
 
-    private void InitializeRecording()
+    private void Initialize()
     {
-        memoryStream = new MemoryStream();
-        binaryWriter = new BinaryWriter(memoryStream);
-        binaryReader = new BinaryReader(memoryStream);
-        recordingInitialized = true;
+        _stream = new MemoryStream();
+        _writer = new BinaryWriter(_stream);
+        _reader = new BinaryReader(_stream);
+        initialized = true;
     }
 
     public void StartRecording()
     {
-        if (!recordingInitialized)
+        if (!initialized)
         {
-            InitializeRecording();
+            Initialize();
         }
         else
         {
-            memoryStream.SetLength(0);
+            _stream.SetLength(0);
         }
         ResetReplayFrame();
 
@@ -63,10 +63,10 @@ public class ReplayService : MonoBehaviour
 
     private void UpdateRecording()
     {
-        if (currentRecordingFrames > maxRecordingFrames)
+        if (_currentRecordingFrames > _maximumRecordingFrames)
         {
             StopRecording();
-            currentRecordingFrames = 0;
+            _currentRecordingFrames = 0;
             return;
         }
 
@@ -76,7 +76,7 @@ public class ReplayService : MonoBehaviour
             ResetReplayFrameTimer();
         }
         --replayFrameTimer;
-        ++currentRecordingFrames;
+        ++_currentRecordingFrames;
     }
 
     public void StopRecording()
@@ -86,8 +86,8 @@ public class ReplayService : MonoBehaviour
 
     private void ResetReplayFrame()
     {
-        memoryStream.Seek(0, SeekOrigin.Begin);
-        binaryWriter.Seek(0, SeekOrigin.Begin);
+        _stream.Seek(0, SeekOrigin.Begin);
+        _writer.Seek(0, SeekOrigin.Begin);
     }
 
     public void StartReplaying()
@@ -109,7 +109,7 @@ public class ReplayService : MonoBehaviour
 
     private void UpdateReplaying()
     {
-        if (memoryStream.Position >= memoryStream.Length)
+        if (_stream.Position >= _stream.Length)
         {
             StopReplaying();
             return;
@@ -150,20 +150,20 @@ public class ReplayService : MonoBehaviour
 
     private void SaveTransform(Transform transform)
     {
-        binaryWriter.Write(transform.localPosition.x);
-        binaryWriter.Write(transform.localPosition.y);
-        binaryWriter.Write(transform.localPosition.z);
+        _writer.Write(transform.localPosition.x);
+        _writer.Write(transform.localPosition.y);
+        _writer.Write(transform.localPosition.z);
     }
 
     private void SaveVelocity(Rigidbody2D rigidbody2D)
     {
-        binaryWriter.Write(rigidbody2D.velocity.x);
-        binaryWriter.Write(rigidbody2D.velocity.y);
+        _writer.Write(rigidbody2D.velocity.x);
+        _writer.Write(rigidbody2D.velocity.y);
     }
 
     private void SaveOrientation(SpriteRenderer spriteRenderer)
     {
-        binaryWriter.Write(spriteRenderer.flipX);
+        _writer.Write(spriteRenderer.flipX);
     }
 
     private void LoadComponents()
@@ -180,16 +180,16 @@ public class ReplayService : MonoBehaviour
 
     private void LoadPlayerReplay(Transform transform, Rigidbody2D rigidbody2D, Animator animator, SpriteRenderer spriteRenderer)
     {
-        float x = binaryReader.ReadSingle();
-        float y = binaryReader.ReadSingle();
-        float z = binaryReader.ReadSingle();
+        float x = _reader.ReadSingle();
+        float y = _reader.ReadSingle();
+        float z = _reader.ReadSingle();
 
         transform.localPosition = new Vector3(x, y, z);
 
-        float xVelocity = binaryReader.ReadSingle();
-        float yVelocity = binaryReader.ReadSingle();
+        float xVelocity = _reader.ReadSingle();
+        float yVelocity = _reader.ReadSingle();
 
-        bool orientation = binaryReader.ReadBoolean();
+        bool orientation = _reader.ReadBoolean();
         spriteRenderer.flipX = orientation;
 
         var velocity = rigidbody2D.velocity;
